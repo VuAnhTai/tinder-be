@@ -1,9 +1,3 @@
-import axios from 'axios';
-
-import { Context } from './context';
-import { Constant } from '../config/constant';
-import config from '../config';
-
 export const Common = {
   /**
    * Parse array to string
