@@ -16,6 +16,7 @@ export class UserUsecase extends CoreUsecase {
   }
 
   listUser(query) {
+    // this.userActionUsecase.findActionOfUser();
     return this.repo.listUser(query);
   }
 }

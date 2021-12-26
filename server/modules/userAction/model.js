@@ -7,8 +7,8 @@ const schema = mongoose.Schema(
     uuid: { type: String },
     user_uuid: { type: String },
     user_action_uuid: { type: String },
-    liked: { type: Number, default: 0 },
-    matches: { type: Number, default: 0 },
+    is_matches: { type: Number, default: 0 },
+    is_liked: { type: Number, default: 0 },
     is_active: { type: Number, default: 0 },
     is_delete: { type: Number, default: 0 },
     created_at: { type: Date, default: Date.now },
@@ -25,7 +25,6 @@ const schema = mongoose.Schema(
 schema.methods.toJSON = function () {
   var obj = this.toObject();
   delete obj._id;
-  delete obj.password;
   return obj;
 };
 

@@ -5,6 +5,20 @@ import uuidv4 from 'uuid/v4';
 const schema = mongoose.Schema(
   {
     uuid: { type: String },
+    name: { type: String },
+    url: { type: String },
+    birthday: { type: Date, default: Date.now },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
     is_active: { type: Number, default: 0 },
     is_delete: { type: Number, default: 0 },
     created_at: { type: Date, default: Date.now },

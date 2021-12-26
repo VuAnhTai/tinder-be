@@ -1,5 +1,6 @@
 require('express-group-routes');
 import { UserHandler } from '../modules/user/handler';
+import { UserActionHandler } from '../modules/userAction/handler';
 
 export default app => {
   app.get('/api', (req, res) =>
@@ -15,7 +16,10 @@ export default app => {
   );
 
   app.group('/user', user => {
-    const handler = new UserHandler();
-    user.get('/', handler.listUser.bind(handler));
+    const handlerUser = new UserHandler();
+    const handlerUserAction = new UserActionHandler();
+    user.get('/', handlerUser.listUser.bind(handlerUser));
+    user.get('/pass', handlerUserAction.pass.bind(handlerUserAction));
+    user.get('/like', handlerUserAction.like.bind(handlerUserAction));
   });
 };
