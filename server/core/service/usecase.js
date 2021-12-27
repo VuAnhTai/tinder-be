@@ -1,5 +1,6 @@
 import { CoreRepo } from './repo';
 import { AppError } from '../errors';
+import { Context } from '../../helpers/context';
 
 export class CoreUsecase {
   /**
@@ -13,5 +14,6 @@ export class CoreUsecase {
     }
 
     this.repo = repo;
+    this.context = new Context();
   }
 }

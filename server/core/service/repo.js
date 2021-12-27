@@ -1,4 +1,5 @@
 import { AppError } from '../errors';
+import { Context } from '../../helpers/context';
 
 /**
  * @export
@@ -18,5 +19,6 @@ export class CoreRepo {
     }
 
     this.model = model;
+    this.context = new Context();
   }
 }

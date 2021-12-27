@@ -1,3 +1,4 @@
+import { includes } from 'lodash';
 import { CoreRepo } from '../../core/service/repo';
 import { UserModel } from './model';
 
@@ -15,7 +16,16 @@ export class UserRepo extends CoreRepo {
     super(UserModel);
   }
 
-  listUser(query) {
-    return this.model.find(query);
+  listUser(query, excludes, includes) {
+    const condition = { ...query };
+    if (excludes && excludes.length) {
+      condition.uuid = { $nin: excludes };
+    }
+
+    if (includes && includes.length) {
+      condition.uuid = { $in: includes };
+    }
+
+    return this.model.find(condition);
   }
 }

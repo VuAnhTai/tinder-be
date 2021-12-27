@@ -16,19 +16,23 @@ export class UserActionUsecase extends CoreUsecase {
     super(repo);
   }
 
-  async like(data) {
-    const matches = await this.repo.findMatches({ data });
+  async like({ user_action_uuid }) {
+    const { user_uuid } = this.context.currentUser;
+    const matches = await this.repo.findMatches({
+      user_uuid,
+      user_action_uuid,
+    });
     const promises = [];
     let is_matches = Constant.DEACTIVE;
     if (matches && matches.is_liked === Constant.ACTIVE) {
       is_matches = Constant.ACTIVE;
-      promises.push(this.repo.updateMatches({ data }));
+      promises.push(this.repo.updateMatches({ user_uuid, user_action_uuid }));
     }
 
     promises.push(
       this.repo.create({
-        user_uuid: data.user_uuid,
-        user_action_uuid: data.user_action_uuid,
+        user_uuid,
+        user_action_uuid: user_action_uuid,
         is_liked: Constant.ACTIVE,
         is_matches,
       })
@@ -39,8 +43,9 @@ export class UserActionUsecase extends CoreUsecase {
   }
 
   pass(data) {
+    const { user_uuid } = this.context.currentUser;
     return this.repo.create({
-      user_uuid: data.user_uuid,
+      user_uuid,
       user_action_uuid: data.user_action_uuid,
       is_liked: Constant.DEACTIVE,
     });

@@ -18,4 +18,30 @@ export class UserHandler {
       next(err);
     }
   }
+
+  async listLiked({ query }, res, next) {
+    try {
+      const result = await this.userUsecase.listLiked(query);
+
+      res.send({
+        message: 'Success',
+        data: result,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async listMatches({ query }, res, next) {
+    try {
+      const result = await this.userUsecase.listMatches(query);
+
+      res.send({
+        message: 'Success',
+        data: result,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
