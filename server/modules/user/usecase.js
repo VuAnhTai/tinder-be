@@ -20,12 +20,25 @@ export class UserUsecase extends CoreUsecase {
 
   async listUser(query) {
     const { user_uuid } = this.context.currentUser;
-    const actionUsers = await this.UserActionRepo.listUserAction(query);
+    const [actionUsers, actionUsersLikedUser] = await Promise.all([
+      this.UserActionRepo.listUserAction({ user_uuid }),
+      this.UserActionRepo.listUserAction({
+        user_action_uuid: user_uuid,
+        is_liked: Constant.ACTIVE,
+      }),
+    ]);
+
     const listUserActionUuid = actionUsers.map(
       action => action.user_action_uuid
     );
 
-    return this.repo.listUser(query, [user_uuid, ...listUserActionUuid], []);
+    const result = await this.repo.listUser(
+      query,
+      [user_uuid, ...listUserActionUuid],
+      []
+    );
+
+    return { users: result, actions: actionUsersLikedUser };
   }
 
   async listLiked(query) {
