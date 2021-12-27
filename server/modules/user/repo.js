@@ -16,6 +16,10 @@ export class UserRepo extends CoreRepo {
     super(UserModel);
   }
 
+  getUser({ user_uuid }) {
+    return this.model.findOne({ uuid: user_uuid });
+  }
+
   listUser(query, excludes, includes) {
     const condition = { ...query };
     if (excludes && excludes.length) {

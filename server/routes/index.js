@@ -23,6 +23,7 @@ export default app => {
     user.get('/', handlerUser.listUser.bind(handlerUser));
     user.get('/liked', handlerUser.listLiked.bind(handlerUser));
     user.get('/matches', handlerUser.listMatches.bind(handlerUser));
+    user.get('/:user_uuid', handlerUser.getUser.bind(handlerUser));
     user.post('/pass', handlerUserAction.pass.bind(handlerUserAction));
     user.post('/like', handlerUserAction.like.bind(handlerUserAction));
   });

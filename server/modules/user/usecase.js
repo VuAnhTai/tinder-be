@@ -18,6 +18,10 @@ export class UserUsecase extends CoreUsecase {
     this.UserActionRepo = new UserActionRepo();
   }
 
+  async getUser(query) {
+    return this.repo.getUser(query);
+  }
+
   async listUser(query) {
     const { user_uuid } = this.context.currentUser;
     const [actionUsers, actionUsersLikedUser] = await Promise.all([
