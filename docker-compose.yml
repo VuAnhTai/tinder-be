@@ -1,0 +1,12 @@
+version: "2"
+services:
+  app:
+    container_name: tinder-be
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./server:/usr/src/app/server
+      - ./package.js:/usr/src/app/package.js
+    ports:
+      - 9030:9030
