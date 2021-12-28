@@ -19,11 +19,9 @@ app.use(httpContext.middleware);
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}/`);
-
-  const connectionStr = `${config.database.db_uri}/${config.database.db_name}`;
+  const connectionStr = `${config.database.db_uri}/${config.database.db_name}?retryWrites=true&w=majority`;
   mongoose
     .connect(connectionStr, {
-      useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
