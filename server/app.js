@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import bodyParser from 'body-parser';
-// import cors from 'cors';
+import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
@@ -14,7 +14,7 @@ const server = http.createServer(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cors());
+app.use(cors());
 app.use(httpContext.middleware);
 
 server.listen(port, () => {
